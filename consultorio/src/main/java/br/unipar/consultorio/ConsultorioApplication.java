@@ -16,23 +16,22 @@ public class ConsultorioApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ConsultorioApplication.class, args);
 	}
-
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.apiInfo(geraInfoSwagger())
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("br.unipar.teste"))
+				.apis(RequestHandlerSelectors.basePackage("br.unipar.consultorio"))
 				.paths(PathSelectors.any())
 				.build();
 	}
 
 	public ApiInfo geraInfoSwagger() {
 		return new ApiInfo("Sistema Spring Boot",
-				"Sistema Criado no Terceiro ano de 2023",
+				"Sistema de Consultório",
 				"1.0",
 				null,
-				"Matheus Oliveira Pereira",
+				"Leonardo e Matheus",
 				null,
 				null);
 	}
