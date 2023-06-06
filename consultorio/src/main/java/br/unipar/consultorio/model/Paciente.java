@@ -1,15 +1,13 @@
 package br.unipar.consultorio.model;
 
+import br.unipar.consultorio.enums.StatusENUM;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Generated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @Data
 @Entity
@@ -45,8 +43,8 @@ public class Paciente {
     @NotBlank
     @NotEmpty
     @NotNull
-    @Size(min = 1, max = 11)
-    @ApiModelProperty(required = true)
+    @Pattern(regexp = "000.000.000-00")
+    @ApiModelProperty(name = "O CPF deve ser informado no seguinte formato: 000.000.000-00", required = true)
     private String cpf;
 
     @OneToOne
@@ -56,5 +54,12 @@ public class Paciente {
     @NotNull
     @ApiModelProperty(required = true)
     private Endereco endereco;
+
+    @NotBlank
+    @NotEmpty
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @ApiModelProperty(required = true)
+    private StatusENUM status;
 
 }

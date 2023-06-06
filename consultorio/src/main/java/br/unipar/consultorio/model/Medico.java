@@ -1,6 +1,7 @@
 package br.unipar.consultorio.model;
 
 import br.unipar.consultorio.enums.EspecialidadeENUM;
+import br.unipar.consultorio.enums.StatusENUM;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -25,6 +26,7 @@ public class Medico {
     @Size(min = 1, max = 255)
     @ApiModelProperty(required = true)
     private String nome;
+
     @NotBlank
     @NotEmpty
     @NotNull
@@ -45,6 +47,7 @@ public class Medico {
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(required = true)
     private EspecialidadeENUM especialidade;
+
     @NotBlank
     @NotEmpty
     @NotNull
@@ -59,5 +62,12 @@ public class Medico {
     @NotNull
     @ApiModelProperty(required = true)
     private Endereco endereco;
+
+    @NotBlank
+    @NotEmpty
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @ApiModelProperty(required = true)
+    private StatusENUM status;
 
 }
