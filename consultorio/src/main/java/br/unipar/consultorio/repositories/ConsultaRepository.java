@@ -14,6 +14,7 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
     @Query
     public List<Consulta> findByDataHoraConsulta(Date data);
 
-    //Como buscar o paciente no parametro de consulta;
+    //Como buscar o paciente no parametro de consulta
+        //R: Buscar pelo objeto inteiro -
 
 }

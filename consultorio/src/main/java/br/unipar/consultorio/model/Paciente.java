@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.Generated;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -43,7 +44,7 @@ public class Paciente {
     @NotBlank
     @NotEmpty
     @NotNull
-    @Pattern(regexp = "000.000.000-00")
+    @CPF
     @ApiModelProperty(name = "O CPF deve ser informado no seguinte formato: 000.000.000-00", required = true)
     private String cpf;
 
