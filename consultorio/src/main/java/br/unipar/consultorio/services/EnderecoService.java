@@ -1,6 +1,5 @@
 package br.unipar.consultorio.services;
 
-import br.unipar.consultorio.model.Consulta;
 import br.unipar.consultorio.model.Endereco;
 import br.unipar.consultorio.repositories.EnderecoRepository;
 import org.springframework.beans.factory.annotation.Autowired;

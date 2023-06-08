@@ -41,10 +41,8 @@ public class Endereco {
     @NotBlank
     @NotEmpty
     @NotNull
-    //@Size(min = 1, max = 9)
     @Pattern(regexp = "\\d{5}-\\d{3}")
     @ApiModelProperty(name = "O cep deve ser informado no seguinte formato: 00000-000", required = true)
     private String cep;
-
 
 }

@@ -2,8 +2,10 @@ package br.unipar.consultorio.model;
 
 import br.unipar.consultorio.enums.EspecialidadeENUM;
 import br.unipar.consultorio.enums.StatusENUM;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,6 +16,7 @@ import javax.validation.constraints.Size;
 @Data
 @Entity
 @Table(name = "MEDICO")
+@ApiModel(description = "Modelo para representação de um Medico")
 public class Medico {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +44,6 @@ public class Medico {
     @ApiModelProperty(required = true)
     private String telefone;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(required = true)
     private EspecialidadeENUM especialidade;
@@ -56,16 +56,9 @@ public class Medico {
     private String crm;
 
     @OneToOne
-    @JoinColumn(name = "endereco_id")
-    @NotBlank
-    @NotEmpty
-    @NotNull
     @ApiModelProperty(required = true)
     private Endereco endereco;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(required = true)
     private StatusENUM status;

@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/endereco")
 @Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Endereço")
-public class enderecoController {
+public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
 
@@ -43,7 +43,7 @@ public class enderecoController {
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Endereços cadastrados no sistema")
-    public List<Endereco> findAll()throws Exception{
+    public List<Endereco> findAll() throws Exception{
         return enderecoService.findAll();
     }
 }
