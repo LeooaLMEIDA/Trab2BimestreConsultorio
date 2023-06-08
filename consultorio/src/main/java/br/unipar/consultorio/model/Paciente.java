@@ -49,16 +49,9 @@ public class Paciente {
     private String cpf;
 
     @OneToOne
-    @JoinColumn(name = "paciente_id")
-    @NotBlank
-    @NotEmpty
-    @NotNull
     @ApiModelProperty(required = true)
     private Endereco endereco;
 
-    @NotBlank
-    @NotEmpty
-    @NotNull
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(required = true)
     private StatusENUM status;
