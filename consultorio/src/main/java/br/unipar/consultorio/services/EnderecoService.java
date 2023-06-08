@@ -24,10 +24,6 @@ public class EnderecoService {
         return endereco;
     }
 
-    public List<Endereco> findAll() throws Exception{
-         return enderecoRepository.findAll();
-    }
-
     public Endereco findById(Long id) throws Exception{
         Optional<Endereco> retorno = enderecoRepository.findById(id);
         if (retorno.isPresent()){
@@ -37,4 +33,13 @@ public class EnderecoService {
             throw new Exception("Endereço " + id + " não encontrado");
         }
     }
+
+    public List<Endereco> findByFilters(String cep) throws Exception{
+        return enderecoRepository.findByCepContainingIgnoreCase(cep);
+    }
+
+    public List<Endereco> findAll() throws Exception{
+         return enderecoRepository.findAll();
+    }
+
 }
