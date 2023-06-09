@@ -25,10 +25,10 @@ public class Endereco {
     @ApiModelProperty(required = true)
     private String Logradouro;
 
-    @ApiModelProperty(required = false)
+    @ApiModelProperty()
     private Integer numero;
 
-    @ApiModelProperty(required = false)
+    @ApiModelProperty()
     private String complemento;
 
     @NotBlank

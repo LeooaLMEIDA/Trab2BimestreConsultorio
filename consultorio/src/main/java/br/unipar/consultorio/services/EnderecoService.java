@@ -14,11 +14,13 @@ public class EnderecoService {
     private EnderecoRepository enderecoRepository;
 
     public Endereco insert(Endereco endereco) throws Exception{
+        validaInsert(endereco);
         enderecoRepository.saveAndFlush(endereco);
         return endereco;
     }
 
     public Endereco update(Endereco endereco) throws Exception {
+        validaUpdate(endereco);
         enderecoRepository.saveAndFlush(endereco);
         return endereco;
     }
@@ -39,6 +41,18 @@ public class EnderecoService {
 
     public List<Endereco> findAll() throws Exception{
          return enderecoRepository.findAll();
+    }
+
+    private void validaInsert(Endereco endereco) throws Exception{
+        if (endereco.getId() != null){
+            throw new Exception("Não é necessário informar o ID para inserir um novo Endereço");
+        }
+    }
+
+    public void validaUpdate(Endereco endereco) throws Exception{
+        if (endereco.getId() == null){
+            throw new Exception("É necessário informar o ID para atualizar o cadastro do Endereço");
+        }
     }
 
 }
