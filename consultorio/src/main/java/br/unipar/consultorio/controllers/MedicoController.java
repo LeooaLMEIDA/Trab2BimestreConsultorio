@@ -30,6 +30,7 @@ public class MedicoController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "Operação responsável pela Inativação de um Medico já existente")
     public Medico delete(@PathVariable Long id) throws Exception{
         return medicoService.delete(id);
     }

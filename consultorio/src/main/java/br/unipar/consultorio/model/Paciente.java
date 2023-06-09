@@ -1,6 +1,8 @@
 package br.unipar.consultorio.model;
 
 import br.unipar.consultorio.enums.StatusENUM;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,6 +15,7 @@ import javax.validation.constraints.*;
 @Data
 @Entity
 @Table(name = "PACIENTE")
+
 @ApiModel(description = "Modelo para representação de um Paciente")
 public class Paciente {
     @Id
@@ -52,8 +55,9 @@ public class Paciente {
     @ApiModelProperty(required = true)
     private Endereco endereco;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
-    @ApiModelProperty(required = true)
+    @ApiModelProperty()
     private StatusENUM status;
 
 }

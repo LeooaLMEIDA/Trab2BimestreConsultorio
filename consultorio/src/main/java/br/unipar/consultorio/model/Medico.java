@@ -2,6 +2,7 @@ package br.unipar.consultorio.model;
 
 import br.unipar.consultorio.enums.EspecialidadeENUM;
 import br.unipar.consultorio.enums.StatusENUM;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -60,6 +61,7 @@ public class Medico {
     @ApiModelProperty(required = true)
     private Endereco endereco;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private StatusENUM status;
 
