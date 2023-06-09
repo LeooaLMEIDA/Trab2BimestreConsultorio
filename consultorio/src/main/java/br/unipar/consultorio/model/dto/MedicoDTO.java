@@ -1,5 +1,6 @@
 package br.unipar.consultorio.model.dto;
 
+import br.unipar.consultorio.enums.EspecialidadeENUM;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EnderecoDTO {
+public class MedicoDTO {
     private String nome;
-    private String telefone;
-    private String cpf;
+    private String email;
+    private String crm;
+    private EspecialidadeENUM especialidade;
 }

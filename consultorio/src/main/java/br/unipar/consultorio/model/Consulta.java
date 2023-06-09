@@ -1,13 +1,11 @@
 package br.unipar.consultorio.model;
 
 import lombok.Data;
-import lombok.Generated;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Data
@@ -34,6 +32,9 @@ public class Consulta {
     @NotEmpty
     @NotNull
     private Date dataHoraConsulta;
+
+
+
 
 
 }

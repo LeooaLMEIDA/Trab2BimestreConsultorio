@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     @Query
-    public List<Medico> findByNomeContainingIgnoreCase(String nome);
+    public List<Medico> findAllByOrderByNomeAsc();
 
+    @Query
+    public List<Medico> findByNomeContainingIgnoreCase(String nome);
 }

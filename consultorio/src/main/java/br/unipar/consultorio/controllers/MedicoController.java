@@ -1,6 +1,7 @@
 package br.unipar.consultorio.controllers;
 
 import br.unipar.consultorio.model.Medico;
+import br.unipar.consultorio.model.dto.MedicoDTO;
 import br.unipar.consultorio.services.MedicoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,13 @@ public class MedicoController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Medico já existente")
-    public Medico update(@RequestBody Medico medico) throws Exception{
+    public Medico update(@RequestBody @Valid Medico medico) throws Exception{
         return medicoService.update(medico);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public Medico delete(@PathVariable Long id) throws Exception{
+        return medicoService.delete(id);
     }
 
     @GetMapping(path = "/{id}")
@@ -42,7 +48,7 @@ public class MedicoController {
 
     @GetMapping
     @ApiOperation(value = "Operação resposável por listar todos os Médicos cadastrados no sistema")
-    public List<Medico> findAll() throws Exception{
+    public List<MedicoDTO> findAll() throws Exception{
         return medicoService.findAll();
     }
 

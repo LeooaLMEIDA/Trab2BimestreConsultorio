@@ -44,6 +44,7 @@ public class Medico {
     @ApiModelProperty(required = true)
     private String telefone;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @ApiModelProperty(required = true)
     private EspecialidadeENUM especialidade;
@@ -60,7 +61,6 @@ public class Medico {
     private Endereco endereco;
 
     @Enumerated(EnumType.STRING)
-    @ApiModelProperty(required = true)
     private StatusENUM status;
 
 }
