@@ -1,10 +1,13 @@
 package br.unipar.consultorio.services;
 
 import br.unipar.consultorio.model.Consulta;
+import br.unipar.consultorio.model.dto.ConsultaDTO;
 import br.unipar.consultorio.repositories.ConsultaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,14 +17,21 @@ public class ConsultaService {
     @Autowired
     private ConsultaRepository consultaRepository;
 
-    public Consulta insert(Consulta consulta) throws Exception{
+    public ConsultaDTO insert(Consulta consulta) throws Exception{
         consultaRepository.saveAndFlush(consulta);
-        return consulta;
+        return ConsultaDTO.consultaDTO(consulta);
     }
 
-    public Consulta update(Consulta consulta) throws Exception{
-        consultaRepository.saveAndFlush(consulta);
-        return consulta;
+    public Consulta cancela(Consulta consulta) throws Exception{
+        if (consulta.getId() == null){
+            throw new Exception("Para realizar o cancelmaneto, é necessário informar o ID da Consulta");
+        }
+
+        if (consulta.getMotivoCancelamento() == null){
+            throw new Exception("Para realizar o cancelamento, é necessário informar o Motivo");
+        }
+
+        return validaAntecedenciaConsulta(consulta);
     }
 
     public List<Consulta> findAll() {
@@ -36,6 +46,26 @@ public class ConsultaService {
         else {
             throw new Exception("Consulta " + id + " não foi localizada");
         }
+    }
+
+    private Consulta validaAntecedenciaConsulta(Consulta consulta) throws Exception{
+        Optional<Consulta> retorno = consultaRepository.findById(consulta.getId());
+        Consulta consultaValidada = new Consulta();
+        LocalDateTime horaAtual = LocalDateTime.now();
+        LocalDateTime horaMarcadaConsulta = retorno.get().getDataHoraConsulta();
+
+        Duration diferença = Duration.between(horaAtual,horaMarcadaConsulta);
+        Long horasDiferença = diferença.toHours();
+
+        if (horasDiferença < 24){
+            throw new Exception("Só podera cancelar uma Consulta com 24 Horas de antecedencia");
+        }
+        consultaValidada = retorno.get();
+
+        consultaValidada.setMotivoCancelamento(retorno.get().getMotivoCancelamento());
+
+        return consultaValidada;
+
     }
 
 }

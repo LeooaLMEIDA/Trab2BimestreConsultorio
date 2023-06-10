@@ -10,6 +10,7 @@ import java.util.List;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
+
     @Query
     public List<Paciente> findAllByOrderByNomeAsc();
 

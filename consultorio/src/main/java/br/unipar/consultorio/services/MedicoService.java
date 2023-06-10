@@ -78,20 +78,20 @@ public class MedicoService {
         return medicosDTO;
     }
 
-    public void validaMedico(Medico medico) throws Exception{
+    private void validaMedico(Medico medico) throws Exception{
         if (medico.getEspecialidade() == null) {
             throw new Exception("É necessário informar a Especialidade do Médico.");
         }
     }
 
-    public void validaInsert(Medico medico) throws Exception{
+    private void validaInsert(Medico medico) throws Exception{
         if(medico.getId() != null){
             throw new Exception("Não é necessário informar o ID para cadastrar um novo Médico");
         }
         validaMedico(medico);
     }
 
-    public void validaUpdate(Medico medico) throws Exception{
+    private void validaUpdate(Medico medico) throws Exception{
         if(medico.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Médico");
         }

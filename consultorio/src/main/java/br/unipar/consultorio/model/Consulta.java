@@ -1,14 +1,18 @@
 package br.unipar.consultorio.model;
 
+import br.unipar.consultorio.enums.MotivoCancelConsultENUM;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "CONSULTA")
 public class Consulta {
@@ -16,25 +20,22 @@ public class Consulta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @NotBlank
-    @NotEmpty
+    @ManyToOne
     @NotNull
     private Paciente paciente;
 
-    @OneToOne
-    @NotBlank
-    @NotEmpty
+    @ManyToOne
     @NotNull
     private Medico medico;
 
-    @NotBlank
-    @NotEmpty
+    @Enumerated(EnumType.STRING)
     @NotNull
-    private Date dataHoraConsulta;
+    private MotivoCancelConsultENUM motivoCancelamento;
 
+    @NotNull
 
-
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING,
+            pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "America/Sao_Paulo")
+    private LocalDateTime dataHoraConsulta;
 
 }

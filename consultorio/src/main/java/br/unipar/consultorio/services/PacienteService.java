@@ -80,13 +80,13 @@ public class PacienteService {
         return pacientesDTO;
     }
 
-    public void validaInsert(Paciente paciente) throws Exception {
+    private void validaInsert(Paciente paciente) throws Exception {
         if (paciente.getId() != null) {
             throw new Exception("Não é necessário informar o ID para cadastrar um novo Paciente");
         }
     }
 
-    public void validaUpdate(Paciente paciente) throws Exception{
+    private void validaUpdate(Paciente paciente) throws Exception{
         if (paciente.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o Paciente");
         }

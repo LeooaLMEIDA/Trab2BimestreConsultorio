@@ -49,7 +49,7 @@ public class EnderecoService {
         }
     }
 
-    public void validaUpdate(Endereco endereco) throws Exception{
+    private void validaUpdate(Endereco endereco) throws Exception{
         if (endereco.getId() == null){
             throw new Exception("É necessário informar o ID para atualizar o cadastro do Endereço");
         }
