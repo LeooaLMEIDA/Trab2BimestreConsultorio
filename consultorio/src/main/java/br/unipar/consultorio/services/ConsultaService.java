@@ -24,7 +24,7 @@ public class ConsultaService {
 
     public Consulta cancela(Consulta consulta) throws Exception{
         if (consulta.getId() == null){
-            throw new Exception("Para realizar o cancelmaneto, é necessário informar o ID da Consulta");
+            throw new Exception("Para realizar o cancelamento, é necessário informar o ID da Consulta");
         }
 
         if (consulta.getMotivoCancelamento() == null){
@@ -54,10 +54,10 @@ public class ConsultaService {
         LocalDateTime horaAtual = LocalDateTime.now();
         LocalDateTime horaMarcadaConsulta = retorno.get().getDataHoraConsulta();
 
-        Duration diferença = Duration.between(horaAtual,horaMarcadaConsulta);
-        Long horasDiferença = diferença.toHours();
+        Duration diferenca = Duration.between(horaAtual,horaMarcadaConsulta);
+        Long horasDiferenca = diferenca.toHours();
 
-        if (horasDiferença < 24){
+        if (horasDiferenca < 24){
             throw new Exception("Só podera cancelar uma Consulta com 24 Horas de antecedencia");
         }
         consultaValidada = retorno.get();
