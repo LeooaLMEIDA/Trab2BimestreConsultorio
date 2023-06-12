@@ -1,8 +1,10 @@
 package br.unipar.consultorio.services;
 
 import br.unipar.consultorio.enums.StatusENUM;
+import br.unipar.consultorio.model.Endereco;
 import br.unipar.consultorio.model.Medico;
 import br.unipar.consultorio.model.dto.MedicoDTO;
+import br.unipar.consultorio.repositories.EnderecoRepository;
 import br.unipar.consultorio.repositories.MedicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,16 +18,23 @@ public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
 
+    @Autowired
+    private EnderecoService enderecoService;
+
     public Medico insert(Medico medico) throws Exception{
         validaInsert(medico);
         medico.setStatus(StatusENUM.ATIVO);
         medicoRepository.saveAndFlush(medico);
+        Endereco endereco = enderecoService.findById(medico.getEndereco().getId());
+        medico.setEndereco(endereco);
         return medico;
     }
 
     public Medico update(Medico medico) throws Exception{
         validaUpdate(medico);
         medicoRepository.saveAndFlush(medico);
+        Endereco endereco = enderecoService.findById(medico.getEndereco().getId());
+        medico.setEndereco(endereco);
         return medico;
     }
 
