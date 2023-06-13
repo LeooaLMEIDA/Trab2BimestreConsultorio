@@ -1,5 +1,6 @@
 package br.unipar.consultorio.services;
 
+import br.unipar.consultorio.enums.MotivoCancelConsultENUM;
 import br.unipar.consultorio.model.Consulta;
 import br.unipar.consultorio.model.dto.ConsultaDTO;
 import br.unipar.consultorio.repositories.ConsultaRepository;
@@ -18,20 +19,14 @@ public class ConsultaService {
     private ConsultaRepository consultaRepository;
 
     public ConsultaDTO insert(Consulta consulta) throws Exception{
+        validaInsert(consulta);
         consultaRepository.saveAndFlush(consulta);
         return ConsultaDTO.consultaDTO(consulta);
     }
 
     public Consulta cancela(Consulta consulta) throws Exception{
-        if (consulta.getId() == null){
-            throw new Exception("Para realizar o cancelamento, é necessário informar o ID da Consulta");
-        }
-
-        if (consulta.getMotivoCancelamento() == null){
-            throw new Exception("Para realizar o cancelamento, é necessário informar o Motivo");
-        }
-
-        return validaAntecedenciaConsulta(consulta);
+        Consulta consultaCancelada = validaCancela(consulta);
+        return consultaRepository.saveAndFlush(consultaCancelada);
     }
 
     public List<Consulta> findAll() {
@@ -68,4 +63,24 @@ public class ConsultaService {
 
     }
 
+    private void validaInsert(Consulta consulta) throws Exception{
+        if (consulta.getId() != null) {
+            throw new Exception("Não é necessário informar o ID para cadastrar uma nova Consulta");
+        }
+    }
+
+    private Consulta validaCancela(Consulta consulta) throws Exception{
+        if (consulta.getId() == null){
+            throw new Exception("Para realizar o cancelamento, é necessário informar o ID da Consulta");
+        }
+
+        if (consulta.getMotivoCancelamento() == null){
+            throw new Exception("Para realizar o cancelamento, é necessário informar o Motivo");
+        }
+        return consulta;
+    }
+
+    private void validaConsulta(Consulta consulta) throws Exception{
+
+    }
 }

@@ -29,11 +29,9 @@ public class Consulta {
     private Medico medico;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
     private MotivoCancelConsultENUM motivoCancelamento;
 
     @NotNull
-
     @JsonFormat(shape = JsonFormat.Shape.STRING,
             pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "America/Sao_Paulo")
     private LocalDateTime dataHoraConsulta;
