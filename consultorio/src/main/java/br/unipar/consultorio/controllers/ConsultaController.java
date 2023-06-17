@@ -25,7 +25,8 @@ public class ConsultaController {
     }
 
     @PutMapping(path = "/cancelar")
-    public Consulta cancela(@RequestBody @Valid Consulta consulta) throws Exception{
+    @ApiOperation("")
+    public Consulta cancela(@RequestBody Consulta consulta) throws Exception{
         return consultaService.cancela(consulta);
     }
 
