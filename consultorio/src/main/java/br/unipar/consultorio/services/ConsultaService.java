@@ -1,6 +1,5 @@
 package br.unipar.consultorio.services;
 
-import br.unipar.consultorio.enums.MotivoCancelConsultENUM;
 import br.unipar.consultorio.model.Consulta;
 import br.unipar.consultorio.model.Medico;
 import br.unipar.consultorio.model.Paciente;
@@ -8,17 +7,19 @@ import br.unipar.consultorio.model.dto.ConsultaDTO;
 import br.unipar.consultorio.repositories.ConsultaRepository;
 import br.unipar.consultorio.repositories.MedicoRepository;
 import br.unipar.consultorio.repositories.PacienteRepository;
+import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@ApiModel(description = "Classe responsável pela regras de Negócio referente a Consulta")
 public class ConsultaService {
-
     @Autowired
     private ConsultaRepository consultaRepository;
     @Autowired
@@ -42,8 +43,23 @@ public class ConsultaService {
         }
     }
 
-    public List<Consulta> findAll() {
-        return consultaRepository.findAll();
+    public List<ConsultaDTO> findAll() {
+        List<Consulta> consultas    = consultaRepository.findAll();
+        List<ConsultaDTO> consultasDTO = new ArrayList<>();
+
+        for (Consulta consulta: consultas) {
+            ConsultaDTO consultaDTO = new ConsultaDTO();
+            consultaDTO.setId(consulta.getId());
+            consultaDTO.setPaciente_id(consulta.getPaciente().getId());
+            consultaDTO.setPaciente_nome(consulta.getPaciente().getNome());
+            consultaDTO.setMedico_id(consulta.getMedico().getId());
+            consultaDTO.setMedico_nome(consulta.getMedico().getNome());
+            consultaDTO.setDataHora(consulta.getDataHoraConsulta().toString());
+
+            consultasDTO.add(consultaDTO);
+        }
+
+        return consultasDTO;
     }
 
     public Consulta cancela(Consulta consulta) throws Exception{
@@ -82,9 +98,7 @@ public class ConsultaService {
             throw new Exception("Consulta já se encontra Cancelada");
         }
 
-        //validaMotivosCancelamento(consulta);
-
-        consultaValidada.setMotivoCancelamento(retorno.get().getMotivoCancelamento());
+        consultaValidada.setMotivoCancelamento(consulta.getMotivoCancelamento());
 
         return consultaValidada;
     }
@@ -139,17 +153,21 @@ public class ConsultaService {
     }
 
     private void validaStatusEnvolvidos(Consulta consulta) throws Exception{
-        Optional<Paciente> paciente = pacienteRepository.findById(consulta.getPaciente().getId());
+        Optional<Paciente> retornoPaciente = pacienteRepository.findById(consulta.getPaciente().getId());
 
-        if (paciente.get().getStatus().equals("INATIVO")){
-            throw new Exception("O Paciente deve estar ATIVO para realizar agendar uma Consulta");
+        String status = String.valueOf(retornoPaciente.get().getStatus());
+
+        if (status.equals("INATIVO")){
+            throw new Exception("O Paciente deve estar ATIVO para poder agendar uma Consulta");
         }
 
-        Optional<Medico> medico = medicoRepository.findById(consulta.getMedico().getId());
-        if (medico.get().getStatus().equals("INATIVO")){
-            throw new Exception("O Médico deve estar ATIVO para realizar agendar uma Consulta");
-        }
+        Optional<Medico> retornoMedico = medicoRepository.findById(consulta.getMedico().getId());
 
+        status = String.valueOf(retornoMedico.get().getStatus());
+
+        if (status.equals("INATIVO")){
+            throw new Exception("O Médico deve estar ATIVO para poder agendar uma Consulta");
+        }
     }
 
     private void validaAgendamentoAntecedencia(Consulta consulta) throws Exception {
@@ -161,14 +179,6 @@ public class ConsultaService {
 
         if (tempoDif < 30) {
             throw new Exception("É preciso uma antecedencia de no minimo 30 minutos para realizar o agendameno da Consulta");
-        }
-    }
-
-    private void validaMotivosCancelamento(Consulta consulta) throws Exception{
-        if (!(consulta.getMotivoCancelamento().equals(MotivoCancelConsultENUM.MEDICO_CANCELOU) ||
-            consulta.getMotivoCancelamento().equals(MotivoCancelConsultENUM.PACIENTE_DESISTIU)||
-            consulta.getMotivoCancelamento().equals(MotivoCancelConsultENUM.OUTROS))) {
-            throw new Exception("Motivo de Cancelamento informado está Incorreto");
         }
     }
 }

@@ -1,6 +1,8 @@
 package br.unipar.consultorio.repositories;
 
 import br.unipar.consultorio.model.Medico;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
+@ApiModel(description = "Classe responsável pela comunicação com o Banco de Dados, referente aos Médicos")
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
     @Query
     public List<Medico> findAllByOrderByNomeAsc();

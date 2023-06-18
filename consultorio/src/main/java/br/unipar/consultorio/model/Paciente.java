@@ -15,7 +15,6 @@ import javax.validation.constraints.*;
 @Data
 @Entity
 @Table(name = "PACIENTE")
-
 @ApiModel(description = "Modelo para representação de um Paciente")
 public class Paciente {
     @Id
@@ -55,7 +54,6 @@ public class Paciente {
     @ApiModelProperty(required = true)
     private Endereco endereco;
 
-    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @ApiModelProperty()
     private StatusENUM status;

@@ -3,6 +3,7 @@ package br.unipar.consultorio.controllers;
 import br.unipar.consultorio.model.Medico;
 import br.unipar.consultorio.model.dto.MedicoDTO;
 import br.unipar.consultorio.services.MedicoService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/medico")
-@ApiOperation(value = "Controlador REST Responsável pela Operações que representam o objeto de negócios Médico")
+@Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Medico")
 public class MedicoController {
     @Autowired
     private MedicoService medicoService;
@@ -37,7 +38,7 @@ public class MedicoController {
 
     @GetMapping(path = "/{id}")
     @ApiOperation(value = "Operação resposável pela busca de Médico via ID")
-    public Medico findById(@PathVariable Long id) throws Exception{
+    public MedicoDTO findById(@PathVariable Long id) throws Exception{
         return medicoService.findById(id);
     }
 

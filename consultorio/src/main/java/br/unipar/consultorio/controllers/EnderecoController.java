@@ -25,7 +25,7 @@ public class EnderecoController {
 
     @PutMapping
     @ApiOperation(value = "Operação responsável pela Atualização de um Endereço já existente")
-    public Endereco update(@RequestBody Endereco endereco) throws Exception{
+    public Endereco update(@RequestBody @Valid Endereco endereco) throws Exception{
         return enderecoService.update(endereco);
     }
 

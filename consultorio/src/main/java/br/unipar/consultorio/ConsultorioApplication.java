@@ -27,8 +27,9 @@ public class ConsultorioApplication {
 	}
 
 	public ApiInfo geraInfoSwagger() {
-		return new ApiInfo("Sistema Spring Boot",
-				"Sistema de Consultório",
+		return new ApiInfo("Documentação Referente as API's das Operações de um Consultório ",
+				"Leonardo Almeida - 00217363 \n" +
+						"Matheus Pereira - 00223804",
 				"1.0",
 				null,
 				"Leonardo e Matheus",

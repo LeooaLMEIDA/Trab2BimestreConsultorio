@@ -2,6 +2,7 @@ package br.unipar.consultorio.services;
 
 import br.unipar.consultorio.model.Endereco;
 import br.unipar.consultorio.repositories.EnderecoRepository;
+import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@ApiModel(description = "Classe responsável pela regras de Negócio referente ao Endereço")
 public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;

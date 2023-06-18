@@ -6,6 +6,7 @@ import br.unipar.consultorio.model.Medico;
 import br.unipar.consultorio.model.dto.MedicoDTO;
 import br.unipar.consultorio.repositories.EnderecoRepository;
 import br.unipar.consultorio.repositories.MedicoRepository;
+import io.swagger.annotations.ApiModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@ApiModel(description = "Classe responsável pela regras de Negócio referente ao Médico")
 public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
@@ -32,6 +34,7 @@ public class MedicoService {
 
     public Medico update(Medico medico) throws Exception{
         validaUpdate(medico);
+        medico.setStatus(StatusENUM.ATIVO);
         medicoRepository.saveAndFlush(medico);
         Endereco endereco = enderecoService.findById(medico.getEndereco().getId());
         medico.setEndereco(endereco);
@@ -56,10 +59,17 @@ public class MedicoService {
         }
     }
 
-    public Medico findById(Long id) throws Exception{
+    public MedicoDTO findById(Long id) throws Exception{
         Optional<Medico> retorno = medicoRepository.findById(id);
         if (retorno.isPresent()){
-            return retorno.get();
+            MedicoDTO medicoDTO = new MedicoDTO();
+            medicoDTO.setNome(retorno.get().getNome());
+            medicoDTO.setEmail(retorno.get().getEmail());
+            medicoDTO.setCrm(retorno.get().getCrm());
+            medicoDTO.setEspecialidade(retorno.get().getEspecialidade());
+            medicoDTO.setStatusENUM(retorno.get().getStatus());
+
+            return medicoDTO;
         }
         else{
             throw new Exception("Medico " + id + " não encontrado.");
@@ -80,6 +90,7 @@ public class MedicoService {
             medicoDTO.setEmail(medico.getEmail());
             medicoDTO.setCrm(medico.getCrm());
             medicoDTO.setEspecialidade(medico.getEspecialidade());
+            medicoDTO.setStatusENUM(medico.getStatus());
 
             medicosDTO.add(medicoDTO);
 

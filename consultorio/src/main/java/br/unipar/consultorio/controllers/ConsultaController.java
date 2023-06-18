@@ -13,27 +13,26 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/consulta")
-@Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Consulta")
+@Api(description = "Controlador REST responsável pela Operações que representam o objeto de negócios Consulta")
 public class ConsultaController {
     @Autowired
     private ConsultaService consultaService;
 
     @PostMapping
-    @ApiOperation(value = "Operação Responsável por realizar a inserção de uma nova consulta")
+    @ApiOperation(value = "Operação responsável por realizar a Inserção de uma nova Consulta")
     public ConsultaDTO insert(@RequestBody @Valid Consulta consulta) throws Exception{
         return consultaService.insert(consulta);
     }
 
     @PutMapping(path = "/cancelar")
-    @ApiOperation("")
+    @ApiOperation("Operação responsável por realizar o Cancelamento de uma Consulta")
     public Consulta cancela(@RequestBody Consulta consulta) throws Exception{
         return consultaService.cancela(consulta);
     }
 
     @GetMapping
-    public List<Consulta> findAll() throws Exception{
+    @ApiOperation("Operação resposável por buscar todas as Consultas Agendadas")
+    public List<ConsultaDTO> findAll() throws Exception{
         return consultaService.findAll();
     }
-
-
 }

@@ -61,7 +61,6 @@ public class Medico {
     @ApiModelProperty(required = true)
     private Endereco endereco;
 
-    @JsonIgnore
     @Enumerated(EnumType.STRING)
     private StatusENUM status;
 

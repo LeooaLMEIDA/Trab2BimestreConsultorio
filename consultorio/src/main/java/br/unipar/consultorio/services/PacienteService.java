@@ -1,9 +1,11 @@
 package br.unipar.consultorio.services;
 
 import br.unipar.consultorio.enums.StatusENUM;
+import br.unipar.consultorio.model.Endereco;
 import br.unipar.consultorio.model.Paciente;
 import br.unipar.consultorio.model.dto.PacienteDTO;
 import br.unipar.consultorio.repositories.PacienteRepository;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +15,20 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@ApiOperation(value = "")
+@ApiModel(description = "Classe responsável pela regras de Negócio referente ao Paciente")
 public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private EnderecoService enderecoService;
+
     public Paciente insert(Paciente paciente) throws Exception{
         validaInsert(paciente);
-
         paciente.setStatus(StatusENUM.ATIVO);
         pacienteRepository.saveAndFlush(paciente);
+        Endereco endereco = enderecoService.findById(paciente.getEndereco().getId());
+        paciente.setEndereco(endereco);
         return paciente;
     }
 
@@ -30,6 +36,8 @@ public class PacienteService {
         validaUpdate(paciente);
         paciente.setStatus(StatusENUM.ATIVO);
         pacienteRepository.saveAndFlush(paciente);
+        Endereco endereco = enderecoService.findById(paciente.getEndereco().getId());
+        paciente.setEndereco(endereco);
         return paciente;
     }
 

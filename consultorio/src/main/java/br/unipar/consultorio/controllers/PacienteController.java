@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/paciente")
-@ApiOperation(value = "Controlador REST Responsável pela Operações que representam o objeto de negócios Paciente")
+@Api(description = "Controlador REST Responsável pela Operações que representam o objeto de negócios Paciente")
 public class PacienteController {
     @Autowired
     private PacienteService pacienteService;
