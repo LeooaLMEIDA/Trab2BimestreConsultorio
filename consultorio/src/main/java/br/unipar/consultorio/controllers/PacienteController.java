@@ -31,7 +31,7 @@ public class PacienteController {
     }
 
     @DeleteMapping(path = "/{id}")
-    @ApiOperation(value = "")
+    @ApiOperation(value = "Operação resposável pela inativação do Paciente já existente")
     public Paciente delete(@PathVariable Long id) throws Exception{
         return pacienteService.delete(id);
     }

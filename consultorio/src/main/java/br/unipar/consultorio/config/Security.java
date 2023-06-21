@@ -3,6 +3,7 @@ package br.unipar.consultorio.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
@@ -35,5 +36,17 @@ public class Security extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
     }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //web.ignoring().antMatchers("/**");
+        web.ignoring().antMatchers("/swagger-ui.html");
+        web.ignoring().antMatchers("/swagger-resources/**");
+        web.ignoring().antMatchers("/v2/**");
+        web.ignoring().antMatchers("/csrf");
+        web.ignoring().antMatchers("/webjars/springfox-swagger-ui/**");
+
+    }
+
 
 }
